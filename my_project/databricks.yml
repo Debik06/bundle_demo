@@ -11,7 +11,7 @@ include:
 variables:
   email_id:
     description: "Email ID for notifications"
-    default: "your-email@example.com"
+    default: "something@prisoft.com"
 
 targets:
   dev:
