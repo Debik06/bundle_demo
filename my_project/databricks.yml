@@ -25,8 +25,8 @@ targets:
   test:
     mode: production
     workspace:
-      host: https://dbc-9baba7fb-145a.cloud.databricks.com
-      root_path:  /Workspace/Users/dprasad@prisoft.com/Shared/bundles/test
+      host: https://dbc-6cf926c2-0f4a.cloud.databricks.com
+      root_path:  /Workspace/Users/celeasa@prisoft.com/Shared/bundles/test
 
 
   prod:
