@@ -1,0 +1,41 @@
+resources:
+  jobs:
+    salesforce_incremental_job:
+      name: supplychain_incremental_job_${bundle.target}
+
+      schedule:
+        quartz_cron_expression: "0 0/4 * * * ?"
+        timezone_id: "Asia/Kolkata"
+        pause_status: UNPAUSED
+
+      parameters:
+        - name: primary_keys
+          default: order_id
+        - name: timestamp_column
+          default: updated_at
+
+      tasks:
+        - task_key: ingest_task
+          notebook_task:
+            notebook_path: "/Workspace/Users/dprasad@prisoft.com/dispatch_worker_trial/orders_mv incremental load"
+            source: WORKSPACE
+          base_parameters:
+            primary_keys: "{{job.parameters.primary_keys}}"
+            timestamp_column: "{{job.parameters.timestamp_column}}"
+          environment_key: serverless_env
+
+        - task_key: transform_task
+          depends_on:
+            - task_key: ingest_task
+          notebook_task:
+            notebook_path: "/Workspace/Users/dprasad@prisoft.com/dispatch_worker_trial/car_sales incremental load"
+            source: WORKSPACE
+          base_parameters:
+            primary_keys: "{{job.parameters.primary_keys}}"
+            timestamp_column: "{{job.parameters.timestamp_column}}"
+          environment_key: serverless_env
+
+      environments:
+        - environment_key: serverless_env
+          spec:
+            client: "1"

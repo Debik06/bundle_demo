@@ -1,0 +1,36 @@
+# This is a Databricks asset bundle definition for my_project.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: my_project
+  uuid: a5002c02-c1ca-452c-ae85-abfbda7ea345
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+variables:
+  email_id:
+    description: "Email ID for notifications"
+    default: "your-email@example.com"
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-9baba7fb-145a.cloud.databricks.com
+      root_path: /Workspace/Users/dprasad@prisoft.com/Shared/bundles/dev
+    
+
+  test:
+    mode: production
+    workspace:
+      host: https://dbc-9baba7fb-145a.cloud.databricks.com
+      root_path:  /Workspace/Users/dprasad@prisoft.com/Shared/bundles/test
+
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-9baba7fb-145a.cloud.databricks.com
+      root_path:  /Workspace/Users/dprasad@prisoft.com/Shared/bundles/prod   
